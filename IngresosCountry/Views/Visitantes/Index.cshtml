@@ -1,0 +1,61 @@
+@model List<VisitanteNoSocio>
+@{
+    ViewData["Title"] = "Visitantes";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0"><i class="bi bi-person-walking me-2"></i>Visitantes / No Socios</h3>
+        <p class="text-muted mb-0">Proveedores, transportistas y visitantes autorizados</p>
+    </div>
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i>Registrar Visitante
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Empresa</th>
+                        <th>Tipo Visita</th>
+                        <th>Placa</th>
+                        <th>Persona Destino</th>
+                        <th>Área</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var v in Model)
+                        {
+                            <tr>
+                                <td>@v.NombreCompleto</td>
+                                <td>@(v.DocumentoIdentidad ?? "-")</td>
+                                <td>@(v.Empresa ?? "-")</td>
+                                <td><span class="badge bg-info">@(v.TipoVisitaNombre ?? "-")</span></td>
+                                <td>@(v.PlacaVehiculo ?? "-")</td>
+                                <td>@(v.PersonaDestino ?? "-")</td>
+                                <td>@(v.AreaDestino ?? "-")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                No hay visitantes registrados.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-muted">Total: @Model.Count visitantes</div>
+</div>

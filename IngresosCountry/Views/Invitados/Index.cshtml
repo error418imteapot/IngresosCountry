@@ -1,0 +1,76 @@
+@model List<Invitacion>
+@{
+    ViewData["Title"] = "Invitaciones";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0"><i class="bi bi-person-badge-fill me-2"></i>Invitaciones</h3>
+        <p class="text-muted mb-0">Gestión de invitaciones de socios</p>
+    </div>
+    <div>
+        <a asp-action="Invitados" class="btn btn-outline-info me-2">
+            <i class="bi bi-people me-1"></i>Ver Invitados
+        </a>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle me-1"></i>Nueva Invitación
+        </a>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Socio</th>
+                        <th>Invitado</th>
+                        <th>Fecha Invitación</th>
+                        <th>Expiración</th>
+                        <th>Código QR</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var inv in Model)
+                        {
+                            <tr>
+                                <td>@inv.SocioNombre @inv.SocioApellido</td>
+                                <td>@inv.InvitadoNombre @inv.InvitadoApellido</td>
+                                <td>@inv.FechaInvitacion.ToString("dd/MM/yyyy")</td>
+                                <td>@(inv.FechaExpiracion?.ToString("dd/MM/yyyy") ?? "Sin expiración")</td>
+                                <td><code>@(inv.CodigoQR ?? "N/A")</code></td>
+                                <td>
+                                    @{
+                                        var estadoClass = inv.Estado switch
+                                        {
+                                            "Aprobado" => "success",
+                                            "Pendiente" => "warning",
+                                            "Usado" => "info",
+                                            "Expirado" => "secondary",
+                                            _ => "secondary"
+                                        };
+                                    }
+                                    <span class="badge bg-@estadoClass">@inv.Estado</span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                No hay invitaciones registradas.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-muted">Total: @Model.Count invitaciones</div>
+</div>

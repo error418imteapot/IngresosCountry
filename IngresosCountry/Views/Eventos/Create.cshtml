@@ -1,0 +1,71 @@
+@model Evento
+@{
+    ViewData["Title"] = "Nuevo Evento";
+    var socios = ViewBag.Socios as List<Socio> ?? new List<Socio>();
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold"><i class="bi bi-calendar-plus me-2"></i>Nuevo Evento</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="Nombre" class="form-label"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Descripcion" class="form-label"></label>
+                            <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="FechaInicio" class="form-label"></label>
+                            <input asp-for="FechaInicio" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="FechaInicio" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="FechaFin" class="form-label"></label>
+                            <input asp-for="FechaFin" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="FechaFin" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Ubicacion" class="form-label"></label>
+                            <input asp-for="Ubicacion" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Capacidad" class="form-label"></label>
+                            <input asp-for="Capacidad" type="number" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="OrganizadorSocioId" class="form-label"></label>
+                            <select asp-for="OrganizadorSocioId" class="form-select">
+                                <option value="">-- Sin organizador --</option>
+                                @foreach (var socio in socios)
+                                {
+                                    <option value="@socio.Id">@socio.NombreCompleto</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success me-2">
+                            <i class="bi bi-check-circle me-1"></i>Crear Evento
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

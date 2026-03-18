@@ -1,0 +1,84 @@
+@model VisitanteNoSocio
+@{
+    ViewData["Title"] = "Registrar Visitante";
+    var tiposVisita = ViewBag.TiposVisita as List<TipoVisita> ?? new List<TipoVisita>();
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold"><i class="bi bi-person-plus me-2"></i>Registrar Visitante</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Visitantes</a></li>
+            <li class="breadcrumb-item active">Nuevo</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label asp-for="Nombre" class="form-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Apellido" class="form-label"></label>
+                    <input asp-for="Apellido" class="form-control" />
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="DocumentoIdentidad" class="form-label"></label>
+                    <input asp-for="DocumentoIdentidad" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="TipoVisitaId" class="form-label"></label>
+                    <select asp-for="TipoVisitaId" class="form-select">
+                        <option value="">-- Seleccionar --</option>
+                        @foreach (var tipo in tiposVisita)
+                        {
+                            <option value="@tipo.Id">@tipo.Nombre</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Empresa" class="form-label"></label>
+                    <input asp-for="Empresa" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Telefono" class="form-label"></label>
+                    <input asp-for="Telefono" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="PlacaVehiculo" class="form-label"></label>
+                    <input asp-for="PlacaVehiculo" class="form-control" placeholder="Ej: P-123ABC" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="PersonaDestino" class="form-label"></label>
+                    <input asp-for="PersonaDestino" class="form-control" placeholder="¿A quién visita?" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="AreaDestino" class="form-label"></label>
+                    <input asp-for="AreaDestino" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <label asp-for="Notas" class="form-label"></label>
+                    <textarea asp-for="Notas" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success me-2">
+                    <i class="bi bi-check-circle me-1"></i>Registrar
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

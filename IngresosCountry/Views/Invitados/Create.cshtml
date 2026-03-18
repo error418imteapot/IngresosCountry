@@ -1,0 +1,92 @@
+@model Invitacion
+@{
+    ViewData["Title"] = "Nueva Invitación";
+    var socios = ViewBag.Socios as List<Socio> ?? new List<Socio>();
+    var invitados = ViewBag.Invitados as List<Invitado> ?? new List<Invitado>();
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold"><i class="bi bi-person-badge-fill me-2"></i>Nueva Invitación</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Invitaciones</a></li>
+            <li class="breadcrumb-item active">Nueva</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="SocioId" class="form-label"></label>
+                            <select asp-for="SocioId" class="form-select">
+                                <option value="">-- Seleccionar Socio --</option>
+                                @foreach (var socio in socios)
+                                {
+                                    <option value="@socio.Id">@socio.NumeroMembresia - @socio.NombreCompleto</option>
+                                }
+                            </select>
+                            <span asp-validation-for="SocioId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="InvitadoId" class="form-label"></label>
+                            <select asp-for="InvitadoId" class="form-select">
+                                <option value="">-- Seleccionar Invitado --</option>
+                                @foreach (var inv in invitados)
+                                {
+                                    <option value="@inv.Id">@inv.NombreCompleto</option>
+                                }
+                            </select>
+                            <span asp-validation-for="InvitadoId" class="text-danger"></span>
+                            <a asp-action="CreateInvitado" class="small mt-1 d-block">
+                                <i class="bi bi-plus me-1"></i>Registrar nuevo invitado
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="FechaInvitacion" class="form-label"></label>
+                            <input asp-for="FechaInvitacion" type="date" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="FechaExpiracion" class="form-label"></label>
+                            <input asp-for="FechaExpiracion" type="date" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Notas" class="form-label"></label>
+                            <textarea asp-for="Notas" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success me-2">
+                            <i class="bi bi-check-circle me-1"></i>Crear Invitación
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm bg-light">
+            <div class="card-body">
+                <h6 class="fw-bold"><i class="bi bi-info-circle me-1"></i>Información</h6>
+                <p class="small text-muted">
+                    Al crear la invitación, se generará automáticamente un código QR que el invitado puede presentar
+                    en la entrada del club para validar su acceso.
+                </p>
+                <p class="small text-muted mb-0">
+                    Si el invitado no está registrado, puede crearlo usando el enlace "Registrar nuevo invitado".
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

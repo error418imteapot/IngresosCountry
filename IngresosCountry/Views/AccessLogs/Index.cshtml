@@ -1,0 +1,128 @@
+@model List<AccessLog>
+@{
+    ViewData["Title"] = "Registro de Accesos";
+    var areas = ViewBag.Areas as List<Area> ?? new List<Area>();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0"><i class="bi bi-journal-text me-2"></i>Registro de Accesos</h3>
+    </div>
+    <a asp-action="RegistrarAcceso" class="btn btn-success">
+        <i class="bi bi-door-open me-1"></i>Registrar Acceso
+    </a>
+</div>
+
+<!-- Filters -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-2">
+                <label class="form-label small">Desde</label>
+                <input type="date" name="fechaDesde" class="form-control" value="@(ViewBag.FechaDesde != null ? ((DateTime)ViewBag.FechaDesde).ToString("yyyy-MM-dd") : "")" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">Hasta</label>
+                <input type="date" name="fechaHasta" class="form-control" value="@(ViewBag.FechaHasta != null ? ((DateTime)ViewBag.FechaHasta).ToString("yyyy-MM-dd") : "")" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">Tipo</label>
+                <select name="tipoVisitante" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="Socio">Socio</option>
+                    <option value="Invitado">Invitado</option>
+                    <option value="NoSocio">No Socio</option>
+                    <option value="Evento">Evento</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">Resultado</label>
+                <select name="resultadoAcceso" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="Aprobado">Aprobado</option>
+                    <option value="Denegado">Denegado</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">Área</label>
+                <select name="areaId" class="form-select">
+                    <option value="">Todas</option>
+                    @foreach (var area in areas)
+                    {
+                        <option value="@area.Id">@area.Nombre</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2"><i class="bi bi-funnel"></i></button>
+                <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Access Logs Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Fecha/Hora Entrada</th>
+                        <th>Salida</th>
+                        <th>Visitante</th>
+                        <th>Tipo</th>
+                        <th>Área</th>
+                        <th>Resultado</th>
+                        <th>Motivo Rechazo</th>
+                        <th>Registrado Por</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var log in Model)
+                        {
+                            <tr>
+                                <td>@log.FechaEntrada.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                <td>@(log.FechaSalida?.ToString("HH:mm:ss") ?? "<span class='text-warning'>Dentro</span>")</td>
+                                <td>@(log.VisitanteNombre ?? "N/A")</td>
+                                <td><span class="badge bg-info">@log.TipoVisitante</span></td>
+                                <td>@(log.AreaNombre ?? "-")</td>
+                                <td>
+                                    <span class="badge bg-@(log.ResultadoAcceso == "Aprobado" ? "success" : "danger")">
+                                        @log.ResultadoAcceso
+                                    </span>
+                                </td>
+                                <td>@(log.MotivoRechazo ?? "-")</td>
+                                <td>@(log.RegistradoPorNombre ?? "-")</td>
+                                <td>
+                                    @if (log.FechaSalida == null && log.ResultadoAcceso == "Aprobado")
+                                    {
+                                        <form asp-action="RegistrarSalida" asp-route-id="@log.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-warning" title="Registrar Salida">
+                                                <i class="bi bi-box-arrow-right"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                No hay registros de acceso.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-muted">Total: @Model.Count registros</div>
+</div>

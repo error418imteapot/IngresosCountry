@@ -1,0 +1,137 @@
+@model RegistrarAccesoViewModel
+@{
+    ViewData["Title"] = "Registrar Acceso";
+    var areas = ViewBag.Areas as List<Area> ?? new List<Area>();
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold"><i class="bi bi-door-open-fill me-2"></i>Registrar Acceso</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <form asp-action="RegistrarAcceso" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="row g-3">
+                        <!-- Visitor Type Selection -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tipo de Visitante</label>
+                            <select asp-for="TipoVisitante" class="form-select" id="tipoVisitante">
+                                <option value="Socio">Socio</option>
+                                <option value="Invitado">Invitado</option>
+                                <option value="NoSocio">No Socio / Visitante</option>
+                                <option value="Evento">Evento</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="AreaId" class="form-label fw-bold">Punto de Acceso</label>
+                            <select asp-for="AreaId" class="form-select">
+                                <option value="">-- Seleccionar Área --</option>
+                                @foreach (var area in areas)
+                                {
+                                    <option value="@area.Id">@area.Nombre</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Socio Section -->
+                        <div class="col-12" id="seccionSocio">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="fw-bold"><i class="bi bi-credit-card me-1"></i>Validar Membresía</h6>
+                                    <div class="input-group">
+                                        <input type="text" id="txtBuscarMembresia" class="form-control" placeholder="Escanear tarjeta o escribir No. Membresía" />
+                                        <button type="button" class="btn btn-primary" id="btnBuscarSocio">
+                                            <i class="bi bi-search"></i> Buscar
+                                        </button>
+                                    </div>
+                                    <div id="resultadoSocio" class="mt-2"></div>
+                                    <input type="hidden" asp-for="SocioId" id="socioIdInput" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- QR Section for Invitados -->
+                        <div class="col-12 d-none" id="seccionInvitado">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="fw-bold"><i class="bi bi-qr-code me-1"></i>Validar Invitación (QR)</h6>
+                                    <div class="input-group">
+                                        <input type="text" id="txtCodigoQR" class="form-control" placeholder="Escanear código QR" />
+                                        <button type="button" class="btn btn-info text-white" id="btnValidarQR">
+                                            <i class="bi bi-check"></i> Validar
+                                        </button>
+                                    </div>
+                                    <div id="resultadoQR" class="mt-2"></div>
+                                    <input type="hidden" asp-for="InvitadoId" id="invitadoIdInput" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="PuntoAcceso" class="form-label">Punto de Acceso</label>
+                            <input asp-for="PuntoAcceso" class="form-control" placeholder="Ej: Garita Norte" />
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Notas" class="form-label">Notas</label>
+                            <textarea asp-for="Notas" class="form-control" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success btn-lg me-2">
+                            <i class="bi bi-check-circle me-1"></i>Registrar Entrada
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+$(document).ready(function() {
+    // Toggle sections based on visitor type
+    $('#tipoVisitante').change(function() {
+        var tipo = $(this).val();
+        $('#seccionSocio, #seccionInvitado').addClass('d-none');
+        if (tipo === 'Socio') $('#seccionSocio').removeClass('d-none');
+        if (tipo === 'Invitado') $('#seccionInvitado').removeClass('d-none');
+    });
+
+    // Search member
+    $('#btnBuscarSocio').click(function() {
+        var numero = $('#txtBuscarMembresia').val().trim();
+        if (!numero) return;
+        $.get('/api/socios/validar/' + encodeURIComponent(numero), function(data) {
+            if (data.success) {
+                $('#resultadoSocio').html('<div class="alert alert-success mb-0"><strong>✓ ' + data.data.nombre + ' ' + data.data.apellido + '</strong> - ' + data.data.estado + '</div>');
+                $('#socioIdInput').val(data.data.id);
+            } else {
+                $('#resultadoSocio').html('<div class="alert alert-danger mb-0">' + data.message + '</div>');
+                $('#socioIdInput').val('');
+            }
+        });
+    });
+
+    // Validate QR
+    $('#btnValidarQR').click(function() {
+        var codigo = $('#txtCodigoQR').val().trim();
+        if (!codigo) return;
+        $.get('/api/invitados/validar-qr/' + encodeURIComponent(codigo), function(data) {
+            if (data.success) {
+                $('#resultadoQR').html('<div class="alert alert-success mb-0"><strong>✓ Invitado:</strong> ' + data.data.invitadoNombre + ' ' + data.data.invitadoApellido + '<br><strong>Invita:</strong> ' + data.data.socioNombre + ' ' + data.data.socioApellido + '</div>');
+                $('#invitadoIdInput').val(data.data.invitadoId);
+            } else {
+                $('#resultadoQR').html('<div class="alert alert-danger mb-0">' + data.message + '</div>');
+            }
+        });
+    });
+});
+</script>
+}

@@ -1,0 +1,108 @@
+@model Socio
+@{
+    ViewData["Title"] = "Editar Socio";
+    var paises = ViewBag.Paises as List<Pais> ?? new List<Pais>();
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold"><i class="bi bi-pencil-square me-2"></i>Editar Socio</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Socios</a></li>
+            <li class="breadcrumb-item active">Editar - @Model.NombreCompleto</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label asp-for="NumeroMembresia" class="form-label"></label>
+                    <input asp-for="NumeroMembresia" class="form-control" />
+                    <span asp-validation-for="NumeroMembresia" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Nombre" class="form-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Apellido" class="form-label"></label>
+                    <input asp-for="Apellido" class="form-control" />
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="DocumentoIdentidad" class="form-label"></label>
+                    <input asp-for="DocumentoIdentidad" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Telefono" class="form-label"></label>
+                    <input asp-for="Telefono" class="form-control" />
+                </div>
+                <div class="col-md-8">
+                    <label asp-for="Direccion" class="form-label"></label>
+                    <input asp-for="Direccion" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="PaisId" class="form-label"></label>
+                    <select asp-for="PaisId" class="form-select">
+                        <option value="">-- Seleccionar --</option>
+                        @foreach (var pais in paises)
+                        {
+                            <option value="@pais.Id">@pais.Nombre</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="FechaNacimiento" class="form-label"></label>
+                    <input asp-for="FechaNacimiento" type="date" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="TipoMembresia" class="form-label"></label>
+                    <select asp-for="TipoMembresia" class="form-select">
+                        <option value="Estándar">Estándar</option>
+                        <option value="Premium">Premium</option>
+                        <option value="Familiar">Familiar</option>
+                        <option value="Corporativo">Corporativo</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Estado" class="form-label"></label>
+                    <select asp-for="Estado" class="form-select">
+                        <option value="Activo">Activo</option>
+                        <option value="Moroso">Moroso</option>
+                        <option value="Suspendido">Suspendido</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="FechaIngreso" class="form-label"></label>
+                    <input asp-for="FechaIngreso" type="date" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <label asp-for="Notas" class="form-label"></label>
+                    <textarea asp-for="Notas" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bi bi-check-circle me-1"></i>Actualizar
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,215 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h3 class="fw-bold"><i class="bi bi-speedometer2 me-2"></i>Dashboard</h3>
+        <p class="text-muted">Resumen de actividad del día - @DateTime.Now.ToString("dddd, dd MMMM yyyy")</p>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-door-open-fill text-success fs-4"></i>
+                </div>
+                <h3 class="fw-bold text-success">@Model.EntradasHoy</h3>
+                <p class="text-muted mb-0 small">Entradas Hoy</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-x-circle-fill text-danger fs-4"></i>
+                </div>
+                <h3 class="fw-bold text-danger">@Model.DenegadosHoy</h3>
+                <p class="text-muted mb-0 small">Denegados Hoy</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-people-fill text-primary fs-4"></i>
+                </div>
+                <h3 class="fw-bold text-primary">@Model.DentroDelClub</h3>
+                <p class="text-muted mb-0 small">Dentro del Club</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-person-check-fill text-info fs-4"></i>
+                </div>
+                <h3 class="fw-bold text-info">@Model.SociosActivos</h3>
+                <p class="text-muted mb-0 small">Socios Activos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
+                </div>
+                <h3 class="fw-bold text-warning">@Model.SociosMorosos</h3>
+                <p class="text-muted mb-0 small">Socios Morosos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-secondary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-calendar-event-fill text-secondary fs-4"></i>
+                </div>
+                <h3 class="fw-bold text-secondary">@Model.EventosProximos</h3>
+                <p class="text-muted mb-0 small">Eventos Próximos</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <i class="bi bi-lightning-fill me-2"></i>Acciones Rápidas
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-controller="AccessLogs" asp-action="RegistrarAcceso" class="btn btn-success btn-lg">
+                        <i class="bi bi-door-open me-2"></i>Registrar Acceso
+                    </a>
+                    <a asp-controller="Socios" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="bi bi-search me-2"></i>Buscar Socio
+                    </a>
+                    <a asp-controller="Visitantes" asp-action="Create" class="btn btn-outline-secondary">
+                        <i class="bi bi-person-plus me-2"></i>Registrar Visitante
+                    </a>
+                    <a asp-controller="Invitados" asp-action="Create" class="btn btn-outline-info">
+                        <i class="bi bi-person-badge me-2"></i>Nueva Invitación
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <i class="bi bi-qr-code-scan me-2"></i>Validación Rápida de Membresía
+            </div>
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+                    <input type="text" id="txtMembresia" class="form-control form-control-lg" placeholder="Escanear o escribir No. Membresía" />
+                    <button class="btn btn-primary" id="btnValidar" type="button">
+                        <i class="bi bi-check-circle me-1"></i>Validar
+                    </button>
+                </div>
+                <div id="validacionResult" class="d-none">
+                    <!-- Result will be shown here via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Access Logs -->
+<div class="row">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-clock-history me-2"></i>Últimos Accesos de Hoy</span>
+                <a asp-controller="AccessLogs" asp-action="Index" class="btn btn-sm btn-outline-light">Ver Todos</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Hora</th>
+                                <th>Visitante</th>
+                                <th>Tipo</th>
+                                <th>Área</th>
+                                <th>Resultado</th>
+                                <th>Registrado Por</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.UltimosAccesos.Any())
+                            {
+                                @foreach (var log in Model.UltimosAccesos.Take(10))
+                                {
+                                    <tr>
+                                        <td>@log.FechaEntrada.ToString("HH:mm:ss")</td>
+                                        <td>@(log.VisitanteNombre ?? "N/A")</td>
+                                        <td>
+                                            <span class="badge bg-@(log.TipoVisitante == "Socio" ? "primary" : log.TipoVisitante == "Invitado" ? "info" : "secondary")">
+                                                @log.TipoVisitante
+                                            </span>
+                                        </td>
+                                        <td>@(log.AreaNombre ?? "-")</td>
+                                        <td>
+                                            <span class="badge bg-@(log.ResultadoAcceso == "Aprobado" ? "success" : "danger")">
+                                                @log.ResultadoAcceso
+                                            </span>
+                                        </td>
+                                        <td>@(log.RegistradoPorNombre ?? "-")</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">
+                                        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                        No hay registros de acceso para hoy.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+$(document).ready(function() {
+    $('#btnValidar').click(function() {
+        var numero = $('#txtMembresia').val().trim();
+        if (!numero) { alert('Ingrese un número de membresía.'); return; }
+
+        $.get('/api/socios/validar/' + encodeURIComponent(numero), function(data) {
+            var resultDiv = $('#validacionResult');
+            resultDiv.removeClass('d-none');
+            if (data.success) {
+                resultDiv.html('<div class="alert alert-success"><i class="bi bi-check-circle-fill me-2"></i><strong>ACCESO APROBADO</strong><br>' +
+                    'Socio: ' + data.data.nombre + ' ' + data.data.apellido + '<br>' +
+                    'Membresía: ' + data.data.numeroMembresia + '</div>');
+            } else {
+                resultDiv.html('<div class="alert alert-danger"><i class="bi bi-x-circle-fill me-2"></i><strong>ACCESO DENEGADO</strong><br>' + data.message + '</div>');
+            }
+        });
+    });
+
+    $('#txtMembresia').keypress(function(e) {
+        if (e.which == 13) { $('#btnValidar').click(); }
+    });
+});
+</script>
+}

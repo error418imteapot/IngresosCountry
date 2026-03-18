@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Reportes";
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold"><i class="bi bi-graph-up me-2"></i>Reportes</h3>
+    <p class="text-muted">Centro de reportes y análisis</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-calendar-range text-primary fs-2"></i>
+                </div>
+                <h5>Accesos por Fecha</h5>
+                <p class="text-muted small">Reporte de accesos agrupados por fecha, tipo de visitante y resultado.</p>
+                <a asp-action="AccessByDate" class="btn btn-primary">
+                    <i class="bi bi-eye me-1"></i>Ver Reporte
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-shield-x text-danger fs-2"></i>
+                </div>
+                <h5>Accesos Denegados</h5>
+                <p class="text-muted small">Detalle de todos los accesos que fueron denegados con motivos.</p>
+                <a asp-action="DeniedAccess" class="btn btn-danger">
+                    <i class="bi bi-eye me-1"></i>Ver Reporte
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-speedometer2 text-info fs-2"></i>
+                </div>
+                <h5>Dashboard General</h5>
+                <p class="text-muted small">Vista general con estadísticas en tiempo real del club.</p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-info text-white">
+                    <i class="bi bi-eye me-1"></i>Ver Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

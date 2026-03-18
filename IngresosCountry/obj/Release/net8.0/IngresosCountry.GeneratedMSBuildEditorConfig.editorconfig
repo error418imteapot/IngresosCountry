@@ -1,0 +1,125 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = IngresosCountry
+build_property.RootNamespace = IngresosCountry
+build_property.ProjectDir = C:\Users\jmari\source\repos\error418imteapot\IngresosCountry\IngresosCountry\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\jmari\source\repos\error418imteapot\IngresosCountry\IngresosCountry
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/AccessLogs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzTG9nc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/AccessLogs/RegistrarAcceso.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzTG9nc1xSZWdpc3RyYXJBY2Nlc28uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Eventos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Eventos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Eventos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Eventos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Home/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Invitados/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52aXRhZG9zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Invitados/CreateInvitado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52aXRhZG9zXENyZWF0ZUludml0YWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Invitados/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52aXRhZG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Invitados/Invitados.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52aXRhZG9zXEludml0YWRvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Reports/AccessByDate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0c1xBY2Nlc3NCeURhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Reports/DeniedAccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0c1xEZW5pZWRBY2Nlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Reports/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Socios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29jaW9zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Socios/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29jaW9zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Socios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29jaW9zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Socios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29jaW9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Visitantes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRhbnRlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/Visitantes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRhbnRlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jmari/source/repos/error418imteapot/IngresosCountry/IngresosCountry/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

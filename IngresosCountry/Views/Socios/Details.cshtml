@@ -1,0 +1,88 @@
+@model Socio
+@{
+    ViewData["Title"] = "Detalle Socio";
+}
+
+<div class="mb-4">
+    <h3 class="fw-bold"><i class="bi bi-person-lines-fill me-2"></i>Detalle del Socio</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Socios</a></li>
+            <li class="breadcrumb-item active">@Model.NombreCompleto</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center">
+            <div class="card-body">
+                <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px;">
+                    <i class="bi bi-person-fill text-primary" style="font-size: 3rem;"></i>
+                </div>
+                <h4 class="fw-bold">@Model.NombreCompleto</h4>
+                <p class="text-muted">@Model.NumeroMembresia</p>
+                @{
+                    var badgeClass = Model.Estado switch
+                    {
+                        "Activo" => "success",
+                        "Moroso" => "warning",
+                        "Suspendido" => "danger",
+                        _ => "secondary"
+                    };
+                }
+                <span class="badge bg-@badgeClass fs-6">@Model.Estado</span>
+                @if (Model.TieneRestricciones)
+                {
+                    <div class="alert alert-danger mt-3">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                        <strong>ACCESO RESTRINGIDO</strong>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <i class="bi bi-info-circle me-2"></i>Información del Socio
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <strong>Documento:</strong><br />@(Model.DocumentoIdentidad ?? "N/A")
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Email:</strong><br />@(Model.Email ?? "N/A")
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Teléfono:</strong><br />@(Model.Telefono ?? "N/A")
+                    </div>
+                    <div class="col-md-6">
+                        <strong>País:</strong><br />@(Model.PaisNombre ?? "N/A")
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Tipo Membresía:</strong><br />@(Model.TipoMembresia ?? "N/A")
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Fecha Ingreso:</strong><br />@Model.FechaIngreso.ToString("dd/MM/yyyy")
+                    </div>
+                    <div class="col-12">
+                        <strong>Dirección:</strong><br />@(Model.Direccion ?? "N/A")
+                    </div>
+                    <div class="col-12">
+                        <strong>Notas:</strong><br />@(Model.Notas ?? "Sin notas")
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary me-2">
+                    <i class="bi bi-pencil me-1"></i>Editar
+                </a>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Volver
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

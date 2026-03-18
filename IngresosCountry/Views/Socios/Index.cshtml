@@ -1,0 +1,116 @@
+@model List<Socio>
+@{
+    ViewData["Title"] = "Socios";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0"><i class="bi bi-people-fill me-2"></i>Socios</h3>
+        <p class="text-muted mb-0">Gestión de membresías del club</p>
+    </div>
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i>Nuevo Socio
+    </a>
+</div>
+
+<!-- Search and Filters -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" name="busqueda" class="form-control" placeholder="Buscar por nombre, membresía o documento..." value="@ViewBag.Busqueda" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select name="estado" class="form-select">
+                    <option value="">Todos los estados</option>
+                    <option value="Activo" selected="@(ViewBag.Estado == "Activo")">Activo</option>
+                    <option value="Moroso" selected="@(ViewBag.Estado == "Moroso")">Moroso</option>
+                    <option value="Suspendido" selected="@(ViewBag.Estado == "Suspendido")">Suspendido</option>
+                    <option value="Inactivo" selected="@(ViewBag.Estado == "Inactivo")">Inactivo</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary me-2"><i class="bi bi-funnel me-1"></i>Filtrar</button>
+                <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-counterclockwise me-1"></i>Limpiar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Members Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>No. Membresía</th>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Teléfono</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var socio in Model)
+                        {
+                            <tr>
+                                <td><strong>@socio.NumeroMembresia</strong></td>
+                                <td>@socio.NombreCompleto</td>
+                                <td>@(socio.DocumentoIdentidad ?? "-")</td>
+                                <td>@(socio.Telefono ?? "-")</td>
+                                <td>@(socio.TipoMembresia ?? "-")</td>
+                                <td>
+                                    @{
+                                        var badgeClass = socio.Estado switch
+                                        {
+                                            "Activo" => "success",
+                                            "Moroso" => "warning",
+                                            "Suspendido" => "danger",
+                                            _ => "secondary"
+                                        };
+                                    }
+                                    <span class="badge bg-@badgeClass">@socio.Estado</span>
+                                </td>
+                                <td class="text-center">
+                                    <a asp-action="Details" asp-route-id="@socio.Id" class="btn btn-sm btn-outline-info" title="Ver">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@socio.Id" class="btn btn-sm btn-outline-primary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form asp-action="Delete" asp-route-id="@socio.Id" method="post" class="d-inline"
+                                          onsubmit="return confirm('¿Está seguro de eliminar este socio?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                No se encontraron socios.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        Total: @Model.Count socios
+    </div>
+</div>
