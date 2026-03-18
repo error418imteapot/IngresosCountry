@@ -1,51 +1,63 @@
 USE IngresosCountry;
 GO
 
-INSERT INTO tbl_paises (Nombre, Codigo) VALUES 
-('Guatemala', 'GT'), 
-('México', 'MX'), 
-('Estados Unidos', 'US'),
-('El Salvador', 'SV'), 
-('Honduras', 'HN'), 
-('Costa Rica', 'CR'),
-('Panamá', 'PA'), 
-('Colombia', 'CO'), 
-('España', 'ES'), 
-('Argentina', 'AR');
+-- =============================================
+-- PAISES
+-- =============================================
+
+INSERT INTO tbl_paises (pais, cod_area) VALUES 
+('Guatemala', '502'), 
+('México', '52'), 
+('Estados Unidos', '1'),
+('El Salvador', '503'), 
+('Honduras', '504'), 
+('Costa Rica', '506'),
+('Panamá', '507'), 
+('Colombia', '57'), 
+('España', '34'), 
+('Argentina', '54');
 GO
 
-INSERT INTO tbl_visitas_nosocio_tipoVisita (Nombre, Descripcion) VALUES
-('Proveedor', 'Proveedor de bienes o servicios'),
-('Transportista', 'Conductor de transporte o entregas'),
-('Visitante Autorizado', 'Persona autorizada'),
-('Mantenimiento', 'Personal de mantenimiento'),
-('Contratista', 'Contratista externo');
+-- =============================================
+-- TIPOS VISITA
+-- =============================================
+
+INSERT INTO tbl_visitas_nosocio_tipoVisita (descripcion, aplica_vencimiento, evento, activo) VALUES
+('Proveedor', 1, 0, 1),
+('Transportista', 0, 0, 1),
+('Visitante Autorizado', 1, 0, 1),
+('Mantenimiento', 0, 0, 1),
+('Contratista', 1, 0, 1);
 GO
 
-INSERT INTO tbl_visitas_areas (Nombre, Descripcion, Ubicacion) VALUES
-('Entrada Principal', 'Acceso principal', 'Portón Norte'),
-('Entrada Servicio', 'Acceso proveedores', 'Portón Sur'),
-('Área Social', 'Áreas comunes', 'Central'),
-('Piscina', 'Zona de piscina', 'Oeste'),
-('Canchas', 'Área deportiva', 'Este'),
-('Restaurante', 'Restaurante del club', 'Central'),
-('Eventos', 'Salón eventos', 'Norte'),
-('Gimnasio', 'Gym y spa', 'Sur');
+-- =============================================
+-- AREAS
+-- =============================================
+
+INSERT INTO tbl_visitas_areas (nombre, subarea) VALUES
+('Entrada Principal', 'Portón Norte'),
+('Entrada Servicio', 'Portón Sur'),
+('Área Social', 'Central'),
+('Piscina', 'Oeste'),
+('Canchas', 'Este'),
+('Restaurante', 'Central'),
+('Eventos', 'Norte'),
+('Gimnasio', 'Sur');
 GO
 
-INSERT INTO tbl_socios (NumeroMembresia, Nombre, Apellido, DocumentoIdentidad, Email, Telefono, PaisId, TipoMembresia, Estado) VALUES
-('SOC-001', 'Carlos', 'Mendoza', '123456', 'carlos@email.com', '8888-1111', 6, 'Premium', 'Activo'),
-('SOC-002', 'María', 'González', '234567', 'maria@email.com', '8888-2222', 6, 'Estándar', 'Activo'),
-('SOC-003', 'Roberto', 'Pérez', '345678', 'roberto@email.com', '8888-3333', 6, 'Premium', 'Moroso'),
-('SOC-004', 'Ana', 'López', '456789', 'ana@email.com', '8888-4444', 6, 'Familiar', 'Activo'),
-('SOC-005', 'Juan', 'Ramírez', '567890', 'juan@email.com', '8888-5555', 6, 'Estándar', 'Suspendido');
+-- =============================================
+-- SOCIOS
+-- =============================================
+
+INSERT INTO tbl_socios (
+    carne, nombre, cedula, sexo, telefono, celular,
+    direccion, email1, fechaNacimiento, fechaIngreso, estatus
+)
+VALUES
+(1001, 'Carlos Mendoza', '123456', 'M', '8888-1111', '8888-1111', 'San José', 'carlos@email.com', '1990-01-01', GETDATE(), 'Activo'),
+(1002, 'María González', '234567', 'F', '8888-2222', '8888-2222', 'Heredia', 'maria@email.com', '1992-05-10', GETDATE(), 'Activo'),
+(1003, 'Roberto Pérez', '345678', 'M', '8888-3333', '8888-3333', 'Alajuela', 'roberto@email.com', '1985-08-20', GETDATE(), 'Moroso');
 GO
 
-INSERT INTO tbl_clubes_reciprocidad (NombreClub, Direccion, PaisId) VALUES
-('Club México', 'CDMX', 2),
-('Club El Salvador', 'San Salvador', 4),
-('Club Honduras', 'Tegucigalpa', 5);
-GO
-
-PRINT 'Seed cargado correctamente';
+PRINT 'Seed data cargado correctamente';
 GO
