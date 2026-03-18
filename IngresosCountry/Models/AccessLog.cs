@@ -20,7 +20,7 @@ namespace IngresosCountry.Models
         public string? AreaNombre { get; set; }
 
         [Display(Name = "Fecha de Entrada")]
-        public DateTime FechaEntrada { get; set; }
+        public DateTime FechaEntrada { get; set; } = DateTime.Now;
 
         [Display(Name = "Fecha de Salida")]
         public DateTime? FechaSalida { get; set; }
@@ -45,13 +45,16 @@ namespace IngresosCountry.Models
     {
         [Required]
         public string TipoVisitante { get; set; } = "Socio";
+
         public int? SocioId { get; set; }
         public int? InvitadoId { get; set; }
         public int? NoSocioId { get; set; }
         public int? EventoId { get; set; }
         public int? AreaId { get; set; }
+
         public string ResultadoAcceso { get; set; } = "Aprobado";
         public string? MotivoRechazo { get; set; }
+
         public string? PuntoAcceso { get; set; }
         public string? Notas { get; set; }
     }

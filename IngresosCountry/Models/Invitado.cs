@@ -51,7 +51,7 @@ namespace IngresosCountry.Models
         public string Estado { get; set; } = "Pendiente";
         public string? Notas { get; set; }
 
-        // Navigation
+        // Datos para mostrar (joins)
         public string? SocioNombre { get; set; }
         public string? SocioApellido { get; set; }
         public string? InvitadoNombre { get; set; }

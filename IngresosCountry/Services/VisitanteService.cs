@@ -28,20 +28,21 @@ namespace IngresosCountry.Services
             {
                 list.Add(new VisitanteNoSocio
                 {
-                    Id = reader.GetInt32("Id"),
-                    Nombre = reader.GetString("Nombre"),
-                    Apellido = reader.GetString("Apellido"),
-                    DocumentoIdentidad = reader.IsDBNull("DocumentoIdentidad") ? null : reader.GetString("DocumentoIdentidad"),
-                    Empresa = reader.IsDBNull("Empresa") ? null : reader.GetString("Empresa"),
-                    TipoVisitaId = reader.IsDBNull("TipoVisitaId") ? null : reader.GetInt32("TipoVisitaId"),
-                    TipoVisitaNombre = reader.IsDBNull("TipoVisitaNombre") ? null : reader.GetString("TipoVisitaNombre"),
-                    PlacaVehiculo = reader.IsDBNull("PlacaVehiculo") ? null : reader.GetString("PlacaVehiculo"),
-                    PersonaDestino = reader.IsDBNull("PersonaDestino") ? null : reader.GetString("PersonaDestino"),
-                    AreaDestino = reader.IsDBNull("AreaDestino") ? null : reader.GetString("AreaDestino"),
-                    Telefono = reader.IsDBNull("Telefono") ? null : reader.GetString("Telefono"),
-                    Notas = reader.IsDBNull("Notas") ? null : reader.GetString("Notas")
+                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                    Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                    Apellido = reader.GetString(reader.GetOrdinal("Apellido")),
+                    DocumentoIdentidad = reader.IsDBNull(reader.GetOrdinal("DocumentoIdentidad")) ? null : reader.GetString(reader.GetOrdinal("DocumentoIdentidad")),
+                    Empresa = reader.IsDBNull(reader.GetOrdinal("Empresa")) ? null : reader.GetString(reader.GetOrdinal("Empresa")),
+                    TipoVisitaId = reader.IsDBNull(reader.GetOrdinal("TipoVisitaId")) ? null : reader.GetInt32(reader.GetOrdinal("TipoVisitaId")),
+                    TipoVisitaNombre = reader.IsDBNull(reader.GetOrdinal("TipoVisitaNombre")) ? null : reader.GetString(reader.GetOrdinal("TipoVisitaNombre")),
+                    PlacaVehiculo = reader.IsDBNull(reader.GetOrdinal("PlacaVehiculo")) ? null : reader.GetString(reader.GetOrdinal("PlacaVehiculo")),
+                    PersonaDestino = reader.IsDBNull(reader.GetOrdinal("PersonaDestino")) ? null : reader.GetString(reader.GetOrdinal("PersonaDestino")),
+                    AreaDestino = reader.IsDBNull(reader.GetOrdinal("AreaDestino")) ? null : reader.GetString(reader.GetOrdinal("AreaDestino")),
+                    Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
+                    Notas = reader.IsDBNull(reader.GetOrdinal("Notas")) ? null : reader.GetString(reader.GetOrdinal("Notas"))
                 });
             }
+
             return list;
         }
 
@@ -52,6 +53,7 @@ namespace IngresosCountry.Services
 
             using var command = new SqlCommand("sp_VisitantesNoSocios_Insert", connection);
             command.CommandType = CommandType.StoredProcedure;
+
             command.Parameters.AddWithValue("@Nombre", visitante.Nombre);
             command.Parameters.AddWithValue("@Apellido", visitante.Apellido);
             command.Parameters.AddWithValue("@DocumentoIdentidad", (object?)visitante.DocumentoIdentidad ?? DBNull.Value);

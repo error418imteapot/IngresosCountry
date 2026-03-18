@@ -31,7 +31,8 @@ namespace IngresosCountry.Models
 
         public string Estado { get; set; } = "Programado";
         public bool Activo { get; set; } = true;
-        public int TotalParticipantes { get; set; }
+
+        public int TotalParticipantes { get; set; } = 0;
     }
 
     public class EventoParticipante
@@ -53,7 +54,9 @@ namespace IngresosCountry.Models
 
         public int? SocioId { get; set; }
         public int? InvitadoId { get; set; }
-        public bool Confirmado { get; set; }
+
+        public bool Confirmado { get; set; } = false;
+
         public string? NumeroMembresia { get; set; }
     }
 }
