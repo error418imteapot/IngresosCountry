@@ -1,6 +1,6 @@
 # Ingresos Country - Sistema de Control de Acceso
 
-Sistema web para la gestión de control de acceso en un club privado (Country Club).
+Sistema web para la gestión de control de acceso en el Club
 
 ## Tecnologías
 
