@@ -1,26 +1,21 @@
 using IngresosCountry.Models;
 using IngresosCountry.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace IngresosCountry.Controllers
 {
-    [Authorize]
     public class AccessLogsController : Controller
     {
         private readonly IAccessLogService _accessLogService;
         private readonly ICatalogService _catalogService;
         private readonly ISocioService _socioService;
-        private readonly IAuditService _auditService;
 
         public AccessLogsController(IAccessLogService accessLogService, ICatalogService catalogService,
-            ISocioService socioService, IAuditService auditService)
+            ISocioService socioService)
         {
             _accessLogService = accessLogService;
             _catalogService = catalogService;
             _socioService = socioService;
-            _auditService = auditService;
         }
 
         public async Task<IActionResult> Index(DateTime? fechaDesde, DateTime? fechaHasta,
@@ -36,7 +31,6 @@ namespace IngresosCountry.Controllers
             return View(logs);
         }
 
-        [Authorize(Policy = "Security")]
         public async Task<IActionResult> RegistrarAcceso()
         {
             ViewBag.Areas = await _catalogService.GetAreasAsync();
@@ -45,7 +39,6 @@ namespace IngresosCountry.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "Security")]
         public async Task<IActionResult> RegistrarAcceso(RegistrarAccesoViewModel model)
         {
             if (!ModelState.IsValid)
@@ -54,7 +47,6 @@ namespace IngresosCountry.Controllers
                 return View(model);
             }
 
-            // Validate member restrictions
             if (model.TipoVisitante == "Socio" && model.SocioId.HasValue)
             {
                 var socio = await _socioService.GetByIdAsync(model.SocioId.Value);
@@ -65,10 +57,7 @@ namespace IngresosCountry.Controllers
                 }
             }
 
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            var id = await _accessLogService.RegistrarEntradaAsync(model, userId);
-            await _auditService.LogAsync(userId, "Registrar Acceso", "tbl_visitas", id,
-                $"Tipo: {model.TipoVisitante}, Resultado: {model.ResultadoAcceso}");
+            var id = await _accessLogService.RegistrarEntradaAsync(model);
 
             TempData["Success"] = model.ResultadoAcceso == "Aprobado"
                 ? "Acceso registrado exitosamente."
@@ -79,12 +68,9 @@ namespace IngresosCountry.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "Security")]
         public async Task<IActionResult> RegistrarSalida(int id)
         {
             await _accessLogService.RegistrarSalidaAsync(id);
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            await _auditService.LogAsync(userId, "Registrar Salida", "tbl_visitas", id);
 
             TempData["Success"] = "Salida registrada exitosamente.";
             return RedirectToAction(nameof(Index));

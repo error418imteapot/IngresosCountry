@@ -1,23 +1,18 @@
 using IngresosCountry.Models;
 using IngresosCountry.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace IngresosCountry.Controllers
 {
-    [Authorize]
     public class InvitadosController : Controller
     {
         private readonly IInvitadoService _invitadoService;
         private readonly ISocioService _socioService;
-        private readonly IAuditService _auditService;
 
-        public InvitadosController(IInvitadoService invitadoService, ISocioService socioService, IAuditService auditService)
+        public InvitadosController(IInvitadoService invitadoService, ISocioService socioService)
         {
             _invitadoService = invitadoService;
             _socioService = socioService;
-            _auditService = auditService;
         }
 
         public async Task<IActionResult> Index()
@@ -32,7 +27,6 @@ namespace IngresosCountry.Controllers
             return View(invitados);
         }
 
-        [Authorize(Policy = "ServiceDesk")]
         public async Task<IActionResult> Create()
         {
             ViewBag.Socios = await _socioService.GetAllAsync(estado: "Activo");
@@ -42,7 +36,6 @@ namespace IngresosCountry.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "ServiceDesk")]
         public async Task<IActionResult> Create(Invitacion invitacion)
         {
             if (!ModelState.IsValid)
@@ -52,18 +45,14 @@ namespace IngresosCountry.Controllers
                 return View(invitacion);
             }
 
-            // Generate QR code string
             invitacion.CodigoQR = $"INV-{Guid.NewGuid():N}".Substring(0, 20).ToUpper();
 
-            var id = await _invitadoService.CreateInvitacionAsync(invitacion);
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            await _auditService.LogAsync(userId, "Crear Invitación", "tbl_invita", id);
+            await _invitadoService.CreateInvitacionAsync(invitacion);
 
             TempData["Success"] = "Invitación registrada exitosamente.";
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Policy = "ServiceDesk")]
         public IActionResult CreateInvitado()
         {
             return View(new Invitado());
@@ -71,15 +60,12 @@ namespace IngresosCountry.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "ServiceDesk")]
         public async Task<IActionResult> CreateInvitado(Invitado invitado)
         {
             if (!ModelState.IsValid)
                 return View(invitado);
 
-            var id = await _invitadoService.CreateAsync(invitado);
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            await _auditService.LogAsync(userId, "Crear Invitado", "tbl_invitados", id);
+            await _invitadoService.CreateAsync(invitado);
 
             TempData["Success"] = "Invitado registrado exitosamente.";
             return RedirectToAction(nameof(Invitados));

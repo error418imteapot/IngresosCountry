@@ -1,11 +1,9 @@
 using IngresosCountry.Models;
 using IngresosCountry.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IngresosCountry.Controllers
 {
-    [Authorize(Policy = "Management")]
     public class ReportsController : Controller
     {
         private readonly IReportService _reportService;

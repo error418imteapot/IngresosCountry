@@ -1,23 +1,18 @@
 using IngresosCountry.Models;
 using IngresosCountry.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace IngresosCountry.Controllers
 {
-    [Authorize]
     public class SociosController : Controller
     {
         private readonly ISocioService _socioService;
         private readonly ICatalogService _catalogService;
-        private readonly IAuditService _auditService;
 
-        public SociosController(ISocioService socioService, ICatalogService catalogService, IAuditService auditService)
+        public SociosController(ISocioService socioService, ICatalogService catalogService)
         {
             _socioService = socioService;
             _catalogService = catalogService;
-            _auditService = auditService;
         }
 
         public async Task<IActionResult> Index(string? estado, string? busqueda)
@@ -35,7 +30,6 @@ namespace IngresosCountry.Controllers
             return View(socio);
         }
 
-        [Authorize(Policy = "ServiceDesk")]
         public async Task<IActionResult> Create()
         {
             ViewBag.Paises = await _catalogService.GetPaisesAsync();
@@ -44,7 +38,6 @@ namespace IngresosCountry.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "ServiceDesk")]
         public async Task<IActionResult> Create(Socio socio)
         {
             if (!ModelState.IsValid)
@@ -53,16 +46,12 @@ namespace IngresosCountry.Controllers
                 return View(socio);
             }
 
-            var id = await _socioService.CreateAsync(socio);
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            await _auditService.LogAsync(userId, "Crear Socio", "tbl_socios", id,
-                $"Socio creado: {socio.NombreCompleto}");
+            await _socioService.CreateAsync(socio);
 
             TempData["Success"] = "Socio registrado exitosamente.";
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Policy = "ServiceDesk")]
         public async Task<IActionResult> Edit(int id)
         {
             var socio = await _socioService.GetByIdAsync(id);
@@ -73,7 +62,6 @@ namespace IngresosCountry.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "ServiceDesk")]
         public async Task<IActionResult> Edit(Socio socio)
         {
             if (!ModelState.IsValid)
@@ -83,9 +71,6 @@ namespace IngresosCountry.Controllers
             }
 
             await _socioService.UpdateAsync(socio);
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            await _auditService.LogAsync(userId, "Editar Socio", "tbl_socios", socio.Id,
-                $"Socio editado: {socio.NombreCompleto}");
 
             TempData["Success"] = "Socio actualizado exitosamente.";
             return RedirectToAction(nameof(Index));
@@ -93,12 +78,9 @@ namespace IngresosCountry.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Delete(int id)
         {
             await _socioService.DeleteAsync(id);
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            await _auditService.LogAsync(userId, "Eliminar Socio", "tbl_socios", id);
 
             TempData["Success"] = "Socio eliminado exitosamente.";
             return RedirectToAction(nameof(Index));

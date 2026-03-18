@@ -1,23 +1,18 @@
 using IngresosCountry.Models;
 using IngresosCountry.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace IngresosCountry.Controllers
 {
-    [Authorize(Policy = "Security")]
     public class VisitantesController : Controller
     {
         private readonly IVisitanteService _visitanteService;
         private readonly ICatalogService _catalogService;
-        private readonly IAuditService _auditService;
 
-        public VisitantesController(IVisitanteService visitanteService, ICatalogService catalogService, IAuditService auditService)
+        public VisitantesController(IVisitanteService visitanteService, ICatalogService catalogService)
         {
             _visitanteService = visitanteService;
             _catalogService = catalogService;
-            _auditService = auditService;
         }
 
         public async Task<IActionResult> Index()
@@ -42,10 +37,7 @@ namespace IngresosCountry.Controllers
                 return View(visitante);
             }
 
-            var id = await _visitanteService.CreateAsync(visitante);
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-            await _auditService.LogAsync(userId, "Registrar Visitante", "tbl_visitas_nosocios", id,
-                $"Visitante: {visitante.NombreCompleto}");
+            await _visitanteService.CreateAsync(visitante);
 
             TempData["Success"] = "Visitante registrado exitosamente.";
             return RedirectToAction(nameof(Index));

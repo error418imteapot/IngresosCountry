@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jmari\\Downloads\\Ingresos Country\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj": {}
+    "C:\\Users\\jmari\\source\\repos\\error418imteapot\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jmari\\Downloads\\Ingresos Country\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj": {
+    "C:\\Users\\jmari\\source\\repos\\error418imteapot\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jmari\\Downloads\\Ingresos Country\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj",
+        "projectUniqueName": "C:\\Users\\jmari\\source\\repos\\error418imteapot\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj",
         "projectName": "IngresosCountry",
-        "projectPath": "C:\\Users\\jmari\\Downloads\\Ingresos Country\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj",
+        "projectPath": "C:\\Users\\jmari\\source\\repos\\error418imteapot\\IngresosCountry\\IngresosCountry\\IngresosCountry.csproj",
         "packagesPath": "C:\\Users\\jmari\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jmari\\Downloads\\Ingresos Country\\IngresosCountry\\IngresosCountry\\obj\\",
+        "outputPath": "C:\\Users\\jmari\\source\\repos\\error418imteapot\\IngresosCountry\\IngresosCountry\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

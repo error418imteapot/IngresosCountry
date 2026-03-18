@@ -1,10 +1,8 @@
 using IngresosCountry.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IngresosCountry.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly IReportService _reportService;

@@ -1,0 +1,50 @@
+[
+  {
+    "ContainingType": "IngresosCountry.Controllers.ApiController",
+    "Method": "ValidarQR",
+    "RelativePath": "api/invitados/validar-qr/{codigo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codigo",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IngresosCountry.Controllers.ApiController",
+    "Method": "BuscarSocios",
+    "RelativePath": "api/socios/buscar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IngresosCountry.Controllers.ApiController",
+    "Method": "ValidarSocio",
+    "RelativePath": "api/socios/validar/{numero}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "numero",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
